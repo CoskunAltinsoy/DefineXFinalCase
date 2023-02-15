@@ -1,7 +1,6 @@
 package com.definexfinalcase.definexfinalcase.dto.converter;
 
 import com.definexfinalcase.definexfinalcase.dto.credit.CreditDto;
-import com.definexfinalcase.definexfinalcase.dto.individualCustomer.CustomerDto;
 import com.definexfinalcase.definexfinalcase.model.Credit;
 import org.springframework.stereotype.Component;
 

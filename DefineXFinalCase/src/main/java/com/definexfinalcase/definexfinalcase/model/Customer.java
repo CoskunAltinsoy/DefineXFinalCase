@@ -33,4 +33,15 @@ public class Customer extends User {
     @OneToMany(mappedBy = "customer")
     List<Credit> credits;
 
+    public Customer(String email, String password,
+            String phoneNumber, String firstName, String lastName,
+                    String nationalIdentity, String income, double guarantee, LocalDate dateOfBirth) {
+        super(email, password, phoneNumber);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nationalIdentity = nationalIdentity;
+        this.income = income;
+        this.guarantee = guarantee;
+        this.dateOfBirth = dateOfBirth;
+    }
 }

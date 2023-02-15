@@ -7,10 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreditDto {
-    private Long id;
+public class CreateCreditRequest {
     private String creditType;
     private double creditLimit;
     private String description;
-
 }
