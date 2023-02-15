@@ -24,5 +24,9 @@ public class Credit extends BaseEntity{
     @Column(name = "description")
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
 
 }
