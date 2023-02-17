@@ -6,6 +6,7 @@ import com.definexfinalcase.definexfinalcase.dto.converter.CustomerConverter;
 import com.definexfinalcase.definexfinalcase.dto.Customer.CustomerDto;
 import com.definexfinalcase.definexfinalcase.model.Customer;
 import com.definexfinalcase.definexfinalcase.repository.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +14,7 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerConverter customerConverter;
 
+    @Autowired
     public CustomerService(CustomerRepository customerRepository, CustomerConverter customerConverter) {
         this.customerRepository = customerRepository;
         this.customerConverter = customerConverter;
@@ -47,7 +49,11 @@ public class CustomerService {
         return customerConverter.convert(customerRepository.save(customer));
     }
 
-    private Customer findCustomerById(Long id){
+    public void deleteCustomer(Long id){
+        customerRepository.delete(findCustomerById(id));
+    }
+
+    protected Customer findCustomerById(Long id){
         return this.customerRepository.findById(id).orElseThrow();//Exception
     }
 
