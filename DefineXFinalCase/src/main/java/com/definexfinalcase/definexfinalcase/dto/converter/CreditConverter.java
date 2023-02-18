@@ -17,14 +17,25 @@ public class CreditConverter {
         this.customerConverter = customerConverter;
     }
 
-    public CreditDto convert(Credit credit){
+    public CreditDto convertToDto(Credit credit){
         return new CreditDto(credit.getId(),
                 credit.getCreditType(),
                 credit.getCreditLimit(),
                 credit.getDescription(),
-                customerConverter.convert(credit.getCustomer()));
+                customerConverter.convertToDto(credit.getCustomer()));
     }
-    public List<CreditDto> convert(List<Credit> credits){
-        return credits.stream().map(x->convert(x)).collect(Collectors.toList());
+
+    public Credit convertToEntity(CreditDto creditDto){
+        return new Credit(creditDto.getId(),
+                creditDto.getCreditType(),
+                creditDto.getCreditLimit(),
+                creditDto.getDescription(),
+                customerConverter.convertToEntity(creditDto.getCustomerDto()));
+    }
+    public List<CreditDto> convertToDto(List<Credit> credits){
+        return credits.stream().map(x->convertToDto(x)).collect(Collectors.toList());
+    }
+    public List<Credit> convertToEntity(List<CreditDto> creditDtos){
+        return creditDtos.stream().map(x->convertToEntity(x)).collect(Collectors.toList());
     }
 }

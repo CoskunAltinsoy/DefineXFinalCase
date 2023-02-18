@@ -30,7 +30,7 @@ public class CreditService {
         if(score<500){
 
         }
-        return creditConverter.convert(creditRepository.save());
+        return  new CreditDto();//creditConverter(creditRepository.save());
     }
 
 

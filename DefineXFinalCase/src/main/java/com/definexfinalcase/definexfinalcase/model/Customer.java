@@ -44,4 +44,31 @@ public class Customer extends User {
         this.guarantee = guarantee;
         this.dateOfBirth = dateOfBirth;
     }
+
+    public Customer(Long id, String email, String password, String phoneNumber,
+                    String firstName, String lastName, String nationalIdentity,
+                    String income, double guarantee, LocalDate dateOfBirth, List<Credit> credits) {
+        super(id, email, password, phoneNumber);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nationalIdentity = nationalIdentity;
+        this.income = income;
+        this.guarantee = guarantee;
+        this.dateOfBirth = dateOfBirth;
+        this.credits = credits;
+    }
+
+    public Customer(Long id, String email, String password, String phoneNumber,
+                    String firstName, String lastName, String nationalIdentity,
+                    String income, double guarantee, LocalDate dateOfBirth) {
+        super(id, email, password, phoneNumber);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nationalIdentity = nationalIdentity;
+        this.income = income;
+        this.guarantee = guarantee;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+
 }
