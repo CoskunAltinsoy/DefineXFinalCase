@@ -25,8 +25,8 @@ public class Customer extends User {
     private String nationalIdentity;
     @Column(name = "income")
     private String income;
-    @Column(name = "guarantee")
-    private double guarantee;
+    @Column(name = "collateral")
+    private double collateral;
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
@@ -35,38 +35,38 @@ public class Customer extends User {
 
     public Customer(String email, String password,
             String phoneNumber, String firstName, String lastName,
-                    String nationalIdentity, String income, double guarantee, LocalDate dateOfBirth) {
+                    String nationalIdentity, String income, double collateral, LocalDate dateOfBirth) {
         super(email, password, phoneNumber);
         this.firstName = firstName;
         this.lastName = lastName;
         this.nationalIdentity = nationalIdentity;
         this.income = income;
-        this.guarantee = guarantee;
+        this.collateral = collateral;
         this.dateOfBirth = dateOfBirth;
     }
 
     public Customer(Long id, String email, String password, String phoneNumber,
                     String firstName, String lastName, String nationalIdentity,
-                    String income, double guarantee, LocalDate dateOfBirth, List<Credit> credits) {
+                    String income, double collateral, LocalDate dateOfBirth, List<Credit> credits) {
         super(id, email, password, phoneNumber);
         this.firstName = firstName;
         this.lastName = lastName;
         this.nationalIdentity = nationalIdentity;
         this.income = income;
-        this.guarantee = guarantee;
+        this.collateral = collateral;
         this.dateOfBirth = dateOfBirth;
         this.credits = credits;
     }
 
     public Customer(Long id, String email, String password, String phoneNumber,
                     String firstName, String lastName, String nationalIdentity,
-                    String income, double guarantee, LocalDate dateOfBirth) {
+                    String income, double collateral, LocalDate dateOfBirth) {
         super(id, email, password, phoneNumber);
         this.firstName = firstName;
         this.lastName = lastName;
         this.nationalIdentity = nationalIdentity;
         this.income = income;
-        this.guarantee = guarantee;
+        this.collateral = collateral;
         this.dateOfBirth = dateOfBirth;
     }
 

@@ -1,5 +1,6 @@
 package com.definexfinalcase.definexfinalcase.dto.converter;
 
+import com.definexfinalcase.definexfinalcase.dto.credit.CreateCreditRequest;
 import com.definexfinalcase.definexfinalcase.dto.credit.CreditDto;
 import com.definexfinalcase.definexfinalcase.model.Credit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class CreditConverter {
         return new CreditDto(credit.getId(),
                 credit.getCreditType(),
                 credit.getCreditLimit(),
+                credit.getCreditStatus(),
                 credit.getDescription(),
                 customerConverter.convertToDto(credit.getCustomer()));
     }
@@ -29,8 +31,17 @@ public class CreditConverter {
         return new Credit(creditDto.getId(),
                 creditDto.getCreditType(),
                 creditDto.getCreditLimit(),
+                creditDto.getCreditStatus(),
                 creditDto.getDescription(),
                 customerConverter.convertToEntity(creditDto.getCustomerDto()));
+    }
+
+    public Credit convertToEntity(CreateCreditRequest createCreditRequest){
+        return new Credit(createCreditRequest.getCreditType(),
+                createCreditRequest.getCreditLimit(),
+                createCreditRequest.getCreditStatus(),
+                createCreditRequest.getDescription(),
+                customerConverter.convertToEntity(createCreditRequest.getCustomerDto()));
     }
     public List<CreditDto> convertToDto(List<Credit> credits){
         return credits.stream().map(x->convertToDto(x)).collect(Collectors.toList());

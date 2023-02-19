@@ -29,7 +29,7 @@ public class CustomerConverter {
                 customer.getLastName(),
                 customer.getNationalIdentity(),
                 customer.getIncome(),
-                customer.getGuarantee(),
+                customer.getCollateral(),
                 customer.getDateOfBirth(),
                 creditConverter.convertToDto(customer.getCredits()));
     }
@@ -43,7 +43,7 @@ public class CustomerConverter {
                 customerDto.getLastName(),
                 customerDto.getNationalIdentity(),
                 customerDto.getIncome(),
-                customerDto.getGuarantee(),
+                customerDto.getCollateral(),
                 customerDto.getDateOfBirth(),
                 creditConverter.convertToEntity(customerDto.getCreditDtos()));
     }
@@ -55,7 +55,7 @@ public class CustomerConverter {
                 createCustomerRequest.getLastName(),
                 createCustomerRequest.getNationalIdentity(),
                 createCustomerRequest.getIncome(),
-                createCustomerRequest.getGuarantee(),
+                createCustomerRequest.getCollateral(),
                 createCustomerRequest.getDateOfBirth());
     }
     public Customer convertToEntity(UpdateCustomerRequest updateCustomerRequest){
@@ -67,7 +67,7 @@ public class CustomerConverter {
                 updateCustomerRequest.getLastName(),
                 updateCustomerRequest.getNationalIdentity(),
                 updateCustomerRequest.getIncome(),
-                updateCustomerRequest.getGuarantee(),
+                updateCustomerRequest.getCollateral(),
                 updateCustomerRequest.getDateOfBirth());
     }
 
