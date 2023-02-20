@@ -38,8 +38,6 @@ public class CreditConverter {
 
     public Credit convertToEntity(CreateCreditRequest createCreditRequest){
         return new Credit(createCreditRequest.getCreditType(),
-                createCreditRequest.getCreditLimit(),
-                createCreditRequest.getCreditStatus(),
                 createCreditRequest.getDescription(),
                 customerConverter.convertToEntity(createCreditRequest.getCustomerDto()));
     }

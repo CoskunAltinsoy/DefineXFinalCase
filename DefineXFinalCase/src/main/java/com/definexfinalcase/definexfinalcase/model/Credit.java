@@ -24,6 +24,7 @@ public class Credit extends BaseEntity{
     private String creditType;
     @Column(name = "credit_limit")
     private double creditLimit;
+    @Enumerated(EnumType.STRING)
     @Column(name = "credit_Status")
     private CreditStatus creditStatus;
     @Column(name = "description")
@@ -43,20 +44,15 @@ public class Credit extends BaseEntity{
         this.customer = customer;
     }
 
-    public Credit(LocalDateTime createdDate, String creditType, double creditLimit,
-                  CreditStatus creditStatus, String description) {
+    public Credit(LocalDateTime createdDate, String creditType,
+               String description) {
         super(createdDate);
         this.creditType = creditType;
-        this.creditLimit = creditLimit;
-        this.creditStatus = creditStatus;
         this.description = description;
     }
 
-    public Credit(String creditType, double creditLimit,
-                  CreditStatus creditStatus, String description, Customer customer) {
+    public Credit(String creditType, String description, Customer customer) {
         this.creditType = creditType;
-        this.creditLimit = creditLimit;
-        this.creditStatus = creditStatus;
         this.description = description;
         this.customer = customer;
     }

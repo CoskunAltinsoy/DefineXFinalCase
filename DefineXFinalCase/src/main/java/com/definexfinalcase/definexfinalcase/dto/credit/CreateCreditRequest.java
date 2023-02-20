@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateCreditRequest {
     private String creditType;
-    private double creditLimit;
-    private CreditStatus creditStatus;
     private String description;
     private CustomerDto customerDto;
 

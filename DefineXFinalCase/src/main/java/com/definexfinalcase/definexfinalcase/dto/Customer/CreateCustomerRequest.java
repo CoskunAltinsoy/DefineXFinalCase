@@ -22,7 +22,7 @@ public class CreateCustomerRequest {
     private String lastName;
     private String nationalIdentity;
     private String income;
-    private double collateral;
+    private String collateral;
     private LocalDate dateOfBirth;
 
 }

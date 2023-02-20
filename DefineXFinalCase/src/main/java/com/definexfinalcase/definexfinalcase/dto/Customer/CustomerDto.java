@@ -20,7 +20,7 @@ public class CustomerDto {
     private String lastName;
     private String nationalIdentity;
     private String income;
-    private double collateral;
+    private String collateral;
     private LocalDate dateOfBirth;
     private List<CreditDto> creditDtos;
 }
