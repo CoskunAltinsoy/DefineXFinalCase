@@ -37,7 +37,7 @@ public class CreditService {
         creditRepository.save(credit);
         return new SuccessResult("CREDIT.DEMAND.CREATED");
     }
-    
+
     public Result createCredit(CreateCreditRequest createCreditRequest){
         Credit credit = creditConverter.convertToEntity(createCreditRequest);
         checkScore(createCreditRequest.getCustomerDto().getId(),credit.getId());
