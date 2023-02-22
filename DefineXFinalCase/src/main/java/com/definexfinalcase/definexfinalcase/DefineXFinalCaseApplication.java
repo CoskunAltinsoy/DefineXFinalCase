@@ -22,6 +22,7 @@ public class DefineXFinalCaseApplication {
                 .info(new Info()
                         .title("DefineX Final Case API")
                         .version(version)
+                        .description(description)
                         .license(new License().name("DefineX Final Case Licence")));
 
     }
