@@ -1,10 +1,9 @@
 package com.definexfinalcase.definexfinalcase.controller;
 
 import com.definexfinalcase.definexfinalcase.dto.credit.CreateCreditRequest;
-import com.definexfinalcase.definexfinalcase.dto.credit.CreditDto;
 import com.definexfinalcase.definexfinalcase.service.CreditService;
+import com.definexfinalcase.definexfinalcase.service.implementation.CreditServiceImpl;
 import com.definexfinalcase.definexfinalcase.util.result.Result;
-import com.definexfinalcase.definexfinalcase.util.result.SuccessResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

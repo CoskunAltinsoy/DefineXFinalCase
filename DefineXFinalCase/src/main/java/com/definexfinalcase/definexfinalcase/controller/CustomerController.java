@@ -2,8 +2,8 @@ package com.definexfinalcase.definexfinalcase.controller;
 
 import com.definexfinalcase.definexfinalcase.dto.Customer.CreateCustomerRequest;
 import com.definexfinalcase.definexfinalcase.dto.Customer.UpdateCustomerRequest;
-import com.definexfinalcase.definexfinalcase.dto.credit.CreateCreditRequest;
 import com.definexfinalcase.definexfinalcase.service.CustomerService;
+import com.definexfinalcase.definexfinalcase.service.implementation.CustomerServiceImpl;
 import com.definexfinalcase.definexfinalcase.util.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

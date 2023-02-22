@@ -4,6 +4,7 @@ import com.definexfinalcase.definexfinalcase.dto.credit.CreateCreditRequest;
 import com.definexfinalcase.definexfinalcase.dto.credit.CreditDto;
 import com.definexfinalcase.definexfinalcase.model.Credit;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class CreditConverter {
     private final CustomerConverter customerConverter;
 
     @Autowired
-    public CreditConverter(CustomerConverter customerConverter) {
+    public CreditConverter(@Lazy CustomerConverter customerConverter) {
         this.customerConverter = customerConverter;
     }
 
