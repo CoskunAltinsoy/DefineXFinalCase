@@ -8,6 +8,7 @@ import com.definexfinalcase.definexfinalcase.model.enums.CreditStatus;
 import com.definexfinalcase.definexfinalcase.repository.CreditRepository;
 import com.definexfinalcase.definexfinalcase.service.CreditService;
 import com.definexfinalcase.definexfinalcase.util.adapter.CustomerCheckCreditScore;
+import com.definexfinalcase.definexfinalcase.util.adapter.SmsSender;
 import com.definexfinalcase.definexfinalcase.util.result.Result;
 import com.definexfinalcase.definexfinalcase.util.result.SuccessResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +20,26 @@ public class CreditServiceImpl implements CreditService {
     private final CustomerCheckCreditScore  customerCheckCreditScore;
     private final CustomerServiceImpl customerService;
     private final CreditConverter creditConverter;
+    private final SmsSender smsSender;
     static final double CREDIT_LIMIT=4;
     @Autowired
     public CreditServiceImpl(CreditRepository creditRepository,
-                             CustomerCheckCreditScore customerCheckCreditScore, CustomerServiceImpl customerServiceImpl, CreditConverter creditConverter) {
+                             CustomerCheckCreditScore customerCheckCreditScore,
+                             CustomerServiceImpl customerServiceImpl,
+                             CreditConverter creditConverter,
+                             SmsSender smsSender) {
         this.creditRepository = creditRepository;
         this.customerCheckCreditScore = customerCheckCreditScore;
         this.customerService = customerServiceImpl;
         this.creditConverter = creditConverter;
+        this.smsSender = smsSender;
     }
 
     public Result createCreditDemand(CreateCreditRequest createCreditRequest){
         Credit credit = creditConverter.convertToEntity(createCreditRequest);
         credit.setCreditStatus(CreditStatus.REVIEW);
         creditRepository.save(credit);
+        smsSender.sendSms(credit.getCustomer().getPhoneNumber(),"Your Application is Rejected");
         return new SuccessResult("CREDIT.DEMAND.CREATED");
     }
 
@@ -40,6 +47,7 @@ public class CreditServiceImpl implements CreditService {
         Credit credit = creditConverter.convertToEntity(createCreditRequest);
         checkScore(createCreditRequest.getCustomerDto().getId(),credit.getId());
         creditRepository.save(credit);
+        smsSender.sendSms(credit.getCustomer().getPhoneNumber(),"Your Application is Approved");
         return  new SuccessResult("CREDIT.CREATED");
     }
     protected Credit findCreditById(Long id){
