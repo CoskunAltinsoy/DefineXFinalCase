@@ -56,4 +56,6 @@ public class Credit extends BaseEntity{
         this.description = description;
         this.customer = customer;
     }
+
+
 }

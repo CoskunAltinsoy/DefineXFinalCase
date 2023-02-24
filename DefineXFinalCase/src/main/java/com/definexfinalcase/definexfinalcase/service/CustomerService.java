@@ -1,7 +1,7 @@
 package com.definexfinalcase.definexfinalcase.service;
 
-import com.definexfinalcase.definexfinalcase.dto.Customer.CreateCustomerRequest;
-import com.definexfinalcase.definexfinalcase.dto.Customer.UpdateCustomerRequest;
+import com.definexfinalcase.definexfinalcase.dto.customer.CreateCustomerRequest;
+import com.definexfinalcase.definexfinalcase.dto.customer.UpdateCustomerRequest;
 import com.definexfinalcase.definexfinalcase.util.result.Result;
 
 public interface CustomerService {

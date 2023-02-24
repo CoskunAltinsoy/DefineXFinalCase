@@ -1,6 +1,6 @@
 package com.definexfinalcase.definexfinalcase.dto.credit;
 
-import com.definexfinalcase.definexfinalcase.dto.Customer.CustomerDto;
+import com.definexfinalcase.definexfinalcase.dto.customer.CustomerDto;
 import com.definexfinalcase.definexfinalcase.model.enums.CreditStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;

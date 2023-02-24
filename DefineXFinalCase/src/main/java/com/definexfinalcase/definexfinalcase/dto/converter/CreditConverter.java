@@ -36,12 +36,6 @@ public class CreditConverter {
                 creditDto.getDescription(),
                 customerConverter.convertToEntity(creditDto.getCustomerDto()));
     }
-
-    public Credit convertToEntity(CreateCreditRequest createCreditRequest){
-        return new Credit(createCreditRequest.getCreditType(),
-                createCreditRequest.getDescription(),
-                customerConverter.convertToEntity(createCreditRequest.getCustomerDto()));
-    }
     public List<CreditDto> convertToDto(List<Credit> credits){
         return credits.stream().map(x->convertToDto(x)).collect(Collectors.toList());
     }

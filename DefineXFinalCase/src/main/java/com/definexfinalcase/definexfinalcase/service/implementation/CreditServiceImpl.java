@@ -2,6 +2,7 @@ package com.definexfinalcase.definexfinalcase.service.implementation;
 
 import com.definexfinalcase.definexfinalcase.dto.converter.CreditConverter;
 import com.definexfinalcase.definexfinalcase.dto.credit.CreateCreditRequest;
+import com.definexfinalcase.definexfinalcase.dto.credit.UpdateCreditRequest;
 import com.definexfinalcase.definexfinalcase.model.Credit;
 import com.definexfinalcase.definexfinalcase.model.Customer;
 import com.definexfinalcase.definexfinalcase.model.enums.CreditStatus;
@@ -13,6 +14,8 @@ import com.definexfinalcase.definexfinalcase.util.result.Result;
 import com.definexfinalcase.definexfinalcase.util.result.SuccessResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 public class CreditServiceImpl implements CreditService {
@@ -36,16 +39,25 @@ public class CreditServiceImpl implements CreditService {
     }
 
     public Result createCreditDemand(CreateCreditRequest createCreditRequest){
-        Credit credit = creditConverter.convertToEntity(createCreditRequest);
+        Customer customer = customerService.findCustomerById(createCreditRequest.getCustomerId());
+        Credit credit = new Credit(createCreditRequest.getCreditType(),
+                createCreditRequest.getDescription(),
+                customer);
         credit.setCreditStatus(CreditStatus.REVIEW);
+        credit.setCreatedDate(LocalDateTime.now());
         creditRepository.save(credit);
-        smsSender.sendSms(credit.getCustomer().getPhoneNumber(),"Your Application is Rejected");
+        smsSender.sendSms(credit.getCustomer().getPhoneNumber(),"Your credit card request has been received");
         return new SuccessResult("CREDIT.DEMAND.CREATED");
     }
 
-    public Result createCredit(CreateCreditRequest createCreditRequest){
-        Credit credit = creditConverter.convertToEntity(createCreditRequest);
-        checkScore(createCreditRequest.getCustomerDto().getId(),credit.getId());
+    public Result createCredit(UpdateCreditRequest updateCreditRequest){
+        Credit credit = findCreditById(updateCreditRequest.getId());
+       /* Customer customer = customerService.findCustomerById(createCreditRequest.getCustomerId());
+        Credit credit = new Credit(createCreditRequest.getCreditType()
+         createCreditRequest.getDescription(),
+                customer);*/
+        checkScore(credit.getCustomer().getId(),credit.getId());
+        credit.setCreatedDate(LocalDateTime.now());
         creditRepository.save(credit);
         smsSender.sendSms(credit.getCustomer().getPhoneNumber(),"Your Application is Approved");
         return  new SuccessResult("CREDIT.CREATED");

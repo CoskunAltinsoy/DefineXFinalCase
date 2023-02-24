@@ -1,7 +1,7 @@
 package com.definexfinalcase.definexfinalcase.service.implementation;
 
-import com.definexfinalcase.definexfinalcase.dto.Customer.CreateCustomerRequest;
-import com.definexfinalcase.definexfinalcase.dto.Customer.UpdateCustomerRequest;
+import com.definexfinalcase.definexfinalcase.dto.customer.CreateCustomerRequest;
+import com.definexfinalcase.definexfinalcase.dto.customer.UpdateCustomerRequest;
 import com.definexfinalcase.definexfinalcase.dto.converter.CustomerConverter;
 import com.definexfinalcase.definexfinalcase.model.Customer;
 import com.definexfinalcase.definexfinalcase.repository.CustomerRepository;

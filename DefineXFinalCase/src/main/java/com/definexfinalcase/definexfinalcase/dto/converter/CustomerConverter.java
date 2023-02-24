@@ -1,15 +1,13 @@
 package com.definexfinalcase.definexfinalcase.dto.converter;
 
-import com.definexfinalcase.definexfinalcase.dto.Customer.CreateCustomerRequest;
-import com.definexfinalcase.definexfinalcase.dto.Customer.CustomerDto;
-import com.definexfinalcase.definexfinalcase.dto.Customer.UpdateCustomerRequest;
+import com.definexfinalcase.definexfinalcase.dto.customer.CreateCustomerRequest;
+import com.definexfinalcase.definexfinalcase.dto.customer.CustomerDto;
+import com.definexfinalcase.definexfinalcase.dto.customer.UpdateCustomerRequest;
 import com.definexfinalcase.definexfinalcase.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Component
@@ -30,8 +28,8 @@ public class CustomerConverter {
                 customer.getNationalIdentity(),
                 customer.getIncome(),
                 customer.getCollateral(),
-                customer.getDateOfBirth(),
-                creditConverter.convertToDto(customer.getCredits()));
+                customer.getDateOfBirth()
+                /*creditConverter.convertToDto(customer.getCredits())*/);
     }
 
     public Customer convertToEntity(CustomerDto customerDto){
@@ -44,8 +42,8 @@ public class CustomerConverter {
                 customerDto.getNationalIdentity(),
                 customerDto.getIncome(),
                 customerDto.getCollateral(),
-                customerDto.getDateOfBirth(),
-                creditConverter.convertToEntity(customerDto.getCreditDtos()));
+                customerDto.getDateOfBirth()
+                /*creditConverter.convertToEntity(customerDto.getCreditDtos())*/);
     }
     public Customer convertToEntity(CreateCustomerRequest createCustomerRequest){
         return new Customer(createCustomerRequest.getEmail(),

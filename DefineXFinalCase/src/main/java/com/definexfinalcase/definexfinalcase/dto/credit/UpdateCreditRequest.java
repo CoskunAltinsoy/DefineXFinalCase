@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateCreditRequest {
+public class UpdateCreditRequest {
+    private Long id;
     private String creditType;
     private String description;
     private Long customerId;
-
 }

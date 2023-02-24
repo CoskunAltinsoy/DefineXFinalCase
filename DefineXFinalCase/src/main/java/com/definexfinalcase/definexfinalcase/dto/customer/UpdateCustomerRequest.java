@@ -1,4 +1,4 @@
-package com.definexfinalcase.definexfinalcase.dto.Customer;
+package com.definexfinalcase.definexfinalcase.dto.customer;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

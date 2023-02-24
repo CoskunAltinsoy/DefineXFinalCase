@@ -1,6 +1,7 @@
 package com.definexfinalcase.definexfinalcase.controller;
 
 import com.definexfinalcase.definexfinalcase.dto.credit.CreateCreditRequest;
+import com.definexfinalcase.definexfinalcase.dto.credit.UpdateCreditRequest;
 import com.definexfinalcase.definexfinalcase.service.CreditService;
 import com.definexfinalcase.definexfinalcase.service.implementation.CreditServiceImpl;
 import com.definexfinalcase.definexfinalcase.util.result.Result;
@@ -24,7 +25,7 @@ public class CreditController {
         return ResponseEntity.ok(creditService.createCreditDemand(createCreditRequest));
     }
     @PostMapping("/createCredit")
-    public ResponseEntity<Result> createCredit(@RequestBody CreateCreditRequest createCreditRequest){
-        return ResponseEntity.ok(creditService.createCredit(createCreditRequest));
+    public ResponseEntity<Result> createCredit(@RequestBody UpdateCreditRequest updateCreditRequest){
+        return ResponseEntity.ok(creditService.createCredit(updateCreditRequest));
     }
 }
