@@ -1,7 +1,7 @@
 package com.definexfinalcase.definexfinalcase.controller;
 
-import com.definexfinalcase.definexfinalcase.dto.customer.CreateCustomerRequest;
-import com.definexfinalcase.definexfinalcase.dto.customer.UpdateCustomerRequest;
+import com.definexfinalcase.definexfinalcase.dto.request.CreateCustomerRequest;
+import com.definexfinalcase.definexfinalcase.dto.request.UpdateCustomerRequest;
 import com.definexfinalcase.definexfinalcase.service.CustomerService;
 import com.definexfinalcase.definexfinalcase.util.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;

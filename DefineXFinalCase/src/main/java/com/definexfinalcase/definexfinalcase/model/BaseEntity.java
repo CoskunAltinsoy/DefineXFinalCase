@@ -1,5 +1,6 @@
 package com.definexfinalcase.definexfinalcase.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;

@@ -1,8 +1,8 @@
 package com.definexfinalcase.definexfinalcase.dto.converter;
 
-import com.definexfinalcase.definexfinalcase.dto.customer.CreateCustomerRequest;
-import com.definexfinalcase.definexfinalcase.dto.customer.CustomerDto;
-import com.definexfinalcase.definexfinalcase.dto.customer.UpdateCustomerRequest;
+import com.definexfinalcase.definexfinalcase.dto.request.CreateCustomerRequest;
+import com.definexfinalcase.definexfinalcase.dto.response.CustomerDto;
+import com.definexfinalcase.definexfinalcase.dto.request.UpdateCustomerRequest;
 import com.definexfinalcase.definexfinalcase.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

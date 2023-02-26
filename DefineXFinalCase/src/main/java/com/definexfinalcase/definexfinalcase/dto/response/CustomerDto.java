@@ -1,4 +1,4 @@
-package com.definexfinalcase.definexfinalcase.dto.customer;
+package com.definexfinalcase.definexfinalcase.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateCustomerRequest {
+public class CustomerDto {
     private Long id;
     private String email;
     private String password;
@@ -20,4 +20,5 @@ public class UpdateCustomerRequest {
     private String income;
     private String collateral;
     private LocalDate dateOfBirth;
+   // private List<CreditDto> creditDtos;
 }

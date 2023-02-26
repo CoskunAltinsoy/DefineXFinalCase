@@ -1,16 +1,18 @@
 package com.definexfinalcase.definexfinalcase.controller;
 
-import com.definexfinalcase.definexfinalcase.dto.credit.CreateCreditRequest;
-import com.definexfinalcase.definexfinalcase.dto.credit.UpdateCreditRequest;
+import com.definexfinalcase.definexfinalcase.dto.request.CreateCreditRequest;
+import com.definexfinalcase.definexfinalcase.dto.request.UpdateCreditRequest;
+import com.definexfinalcase.definexfinalcase.dto.response.CreditDto;
+import com.definexfinalcase.definexfinalcase.dto.response.GetCreditResponse;
 import com.definexfinalcase.definexfinalcase.service.CreditService;
-import com.definexfinalcase.definexfinalcase.service.implementation.CreditServiceImpl;
+import com.definexfinalcase.definexfinalcase.util.result.DataResult;
 import com.definexfinalcase.definexfinalcase.util.result.Result;
+import jdk.dynalink.linker.LinkerServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/credits")
@@ -27,5 +29,9 @@ public class CreditController {
     @PostMapping("/createCredit")
     public ResponseEntity<Result> createCredit(@RequestBody UpdateCreditRequest updateCreditRequest){
         return ResponseEntity.ok(creditService.createCredit(updateCreditRequest));
+    }
+    @GetMapping("/getByCredit")
+    public ResponseEntity<DataResult<List<CreditDto>>> getByCredit(GetCreditResponse getCreditResponse){
+        return ResponseEntity.ok(creditService.getCreditByNatIdAndDateOfBirth(getCreditResponse));
     }
 }

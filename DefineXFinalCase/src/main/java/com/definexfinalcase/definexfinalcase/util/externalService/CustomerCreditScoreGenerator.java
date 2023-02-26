@@ -1,7 +1,7 @@
 package com.definexfinalcase.definexfinalcase.util.externalService;
 
 public class CustomerCreditScoreGenerator {
-    //I sent to here just natId because this's external service and entities shouldn't be here in my opinion.
+
     public int CustomerCreditScore(String nationalIdentity) {
         int max= 1900;
         int min= 1;

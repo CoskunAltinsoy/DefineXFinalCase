@@ -1,7 +1,6 @@
 package com.definexfinalcase.definexfinalcase.dto.converter;
 
-import com.definexfinalcase.definexfinalcase.dto.credit.CreateCreditRequest;
-import com.definexfinalcase.definexfinalcase.dto.credit.CreditDto;
+import com.definexfinalcase.definexfinalcase.dto.response.CreditDto;
 import com.definexfinalcase.definexfinalcase.model.Credit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -18,7 +17,6 @@ public class CreditConverter {
     public CreditConverter(@Lazy CustomerConverter customerConverter) {
         this.customerConverter = customerConverter;
     }
-
     public CreditDto convertToDto(Credit credit){
         return new CreditDto(credit.getId(),
                 credit.getCreditType(),
@@ -27,7 +25,6 @@ public class CreditConverter {
                 credit.getDescription(),
                 customerConverter.convertToDto(credit.getCustomer()));
     }
-
     public Credit convertToEntity(CreditDto creditDto){
         return new Credit(creditDto.getId(),
                 creditDto.getCreditType(),

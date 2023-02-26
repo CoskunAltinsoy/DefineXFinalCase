@@ -1,5 +1,6 @@
-package com.definexfinalcase.definexfinalcase.dto.credit;
+package com.definexfinalcase.definexfinalcase.dto.request;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,9 +8,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateCreditRequest {
-    private Long id;
+public class CreateCreditRequest {
+    @NotNull
     private String creditType;
+    @NotNull
     private String description;
+    @NotNull
     private Long customerId;
+
 }

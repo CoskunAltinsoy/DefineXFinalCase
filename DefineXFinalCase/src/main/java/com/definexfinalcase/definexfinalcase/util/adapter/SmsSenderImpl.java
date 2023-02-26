@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 @Service("twilio")
 @Slf4j
 public class SmsSenderImpl implements SmsSender{
-  //  private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(SmsSenderImpl.class);
+
     private final TwilioConfiguration twilioConfiguration;
 
     public SmsSenderImpl(TwilioConfiguration twilioConfiguration) {
