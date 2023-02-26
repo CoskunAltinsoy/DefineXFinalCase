@@ -3,14 +3,14 @@ package com.definexfinalcase.definexfinalcase.model;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
-@Data
-@NoArgsConstructor
+@Setter
+@Getter
 @AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @MappedSuperclass
 public class BaseEntity {
     @Column(name = "created_date")

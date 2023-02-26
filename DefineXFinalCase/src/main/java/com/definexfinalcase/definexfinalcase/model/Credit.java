@@ -2,17 +2,16 @@ package com.definexfinalcase.definexfinalcase.model;
 
 import com.definexfinalcase.definexfinalcase.model.enums.CreditStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.core.StandardReflectionParameterNameDiscoverer;
 
 import java.time.LocalDateTime;
 
-@Data
-@NoArgsConstructor
+@Setter
+@Getter
 @AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "credits")
 public class Credit extends BaseEntity{

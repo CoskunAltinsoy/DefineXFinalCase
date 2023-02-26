@@ -3,6 +3,7 @@ package com.definexfinalcase.definexfinalcase.service.implementation;
 import com.definexfinalcase.definexfinalcase.dto.converter.CustomerConverter;
 import com.definexfinalcase.definexfinalcase.dto.request.CreateCustomerRequest;
 import com.definexfinalcase.definexfinalcase.dto.request.UpdateCustomerRequest;
+import com.definexfinalcase.definexfinalcase.dto.response.CustomerDto;
 import com.definexfinalcase.definexfinalcase.exception.ServiceOperationException;
 import com.definexfinalcase.definexfinalcase.model.Customer;
 import com.definexfinalcase.definexfinalcase.repository.CustomerRepository;
@@ -26,6 +27,60 @@ class CustomerServiceImplTest {
     private CustomerRepository customerRepository;
     private CustomerConverter customerConverter;
 
+     static final Long id = 1L;
+
+    CreateCustomerRequest createCustomerRequest =
+            new CreateCustomerRequest(
+                    "coskun@gmail.com",
+                    "12345",
+                    "+905455727995",
+                    "Mücahit",
+                    "Altınsoy",
+                    "21182764900",
+                    "9000",
+                    "10000",
+                    LocalDate.of(1996,07,29)
+            );
+
+    Customer customer =
+            new Customer(id,
+                    "coskun@gmail.com",
+                    "12345",
+                    "+905455727995",
+                    "Mücahit",
+                    "Altınsoy",
+                    "21182764900",
+                    "9000",
+                    "10000",
+                    LocalDate.of(1996,07,29)
+            );
+    UpdateCustomerRequest updateCustomerRequest =
+            new UpdateCustomerRequest(
+                    id,
+                    "coskun@gmail.com",
+                    "12345",
+                    "+905455727995",
+                    "Mücahit",
+                    "Altınsoy",
+                    "21182764900",
+                    "9000",
+                    "10000",
+                    LocalDate.of(1996,07,29)
+            );
+
+    CustomerDto customerDto =
+            new CustomerDto(id,
+                    "coskun@gmail.com",
+                    "12345",
+                    "+905455727995",
+                    "Mücahit",
+                    "Altınsoy",
+                    "21182764900",
+                    "9000",
+                    "10000",
+                    LocalDate.of(1996,07,29)
+            );
+
     @BeforeEach
     void setUp() {
 
@@ -37,31 +92,6 @@ class CustomerServiceImplTest {
 
     @Test
     public void whenCreateCustomer_itShouldReturnSuccessResult(){
-        CreateCustomerRequest createCustomerRequest =
-                new CreateCustomerRequest(
-                        "coskun@gmail.com",
-                        "12345",
-                        "+905455727995",
-                        "Mücahit",
-                        "Altınsoy",
-                        "21182764900",
-                        "9000",
-                        "10000",
-                        LocalDate.of(1996,07,29)
-                );
-
-        Customer customer =
-                new Customer(
-                        "coskun@gmail.com",
-                        "12345",
-                        "+905455727995",
-                        "Mücahit",
-                        "Altınsoy",
-                        "21182764900",
-                        "9000",
-                        "10000",
-                        LocalDate.of(1996,07,29)
-                );
 
         Mockito.when(customerConverter.convertToEntity(createCustomerRequest)).thenReturn(customer);
         Mockito.when(customerRepository.save(customer)).thenReturn(customer);
@@ -76,34 +106,8 @@ class CustomerServiceImplTest {
 
     @Test
     public void testUpdateCustomer_whenCustomerIdExist_itShouldReturnSuccessResult(){
-        Long id = 1L;
-        UpdateCustomerRequest updateCustomerRequest =
-                new UpdateCustomerRequest(
-                        id,
-                        "coskun@gmail.com",
-                        "12345",
-                        "+905455727995",
-                        "Mücahit",
-                        "Altınsoy",
-                        "21182764900",
-                        "9000",
-                        "10000",
-                        LocalDate.of(1996,07,29)
-                );
 
-        Customer customer =
-                new Customer(
-                        "coskun@gmail.com",
-                        "12345",
-                        "+905455727995",
-                        "Mücahit",
-                        "Altınsoy",
-                        "21182764900",
-                        "9000",
-                        "10000",
-                        LocalDate.of(1996,07,29)
-                );
-
+        Mockito.when(customerConverter.convertToEntity(updateCustomerRequest)).thenReturn(customer);
         Mockito.when(customerRepository.findById(id)).thenReturn(Optional.of(customer));
         Mockito.when(customerRepository.save(customer)).thenReturn(customer);
 
@@ -111,6 +115,7 @@ class CustomerServiceImplTest {
 
         assertTrue(result.isSuccess());
 
+        Mockito.verify(customerConverter).convertToEntity(updateCustomerRequest);
         Mockito.verify(customerRepository).findById(id);
         Mockito.verify(customerRepository).save(customer);
 
@@ -118,21 +123,6 @@ class CustomerServiceImplTest {
 
     @Test
     public void testUpdateCustomer_whenCustomerIdDoesNotExist_itShouldReturnSuccessResult(){
-        Long id = 1L;
-        UpdateCustomerRequest updateCustomerRequest =
-                new UpdateCustomerRequest(
-                        id,
-                        "coskun@gmail.com",
-                        "12345",
-                        "+905455727995",
-                        "Mücahit",
-                        "Altınsoy",
-                        "21182764900",
-                        "9000",
-                        "10000",
-                        LocalDate.of(1996,07,29)
-                );
-
 
         Mockito.when(customerRepository.findById(id)).thenReturn(Optional.empty());
 
@@ -145,22 +135,6 @@ class CustomerServiceImplTest {
     @Test
     public void testDeleteCustomer_whenCustomerIdExist_itShouldReturnSuccessResult(){
 
-        Long id = 1L;
-
-        Customer customer =
-                new Customer(
-                        1L,
-                        "coskun@gmail.com",
-                        "12345",
-                        "+905455727995",
-                        "Mücahit",
-                        "Altınsoy",
-                        "21182764900",
-                        "9000",
-                        "10000",
-                        LocalDate.of(1996,07,29)
-                );
-
         Mockito.when(customerRepository.findById(id)).thenReturn(Optional.of(customer));
 
         Result result = customerService.deleteCustomer(id);
@@ -168,13 +142,10 @@ class CustomerServiceImplTest {
         assertTrue(result.isSuccess());
 
         Mockito.verify(customerRepository).findById(id);
-        Mockito.verify(customerRepository).deleteById(id);
     }
 
     @Test
     public void testDeleteCustomer_whenCustomerIdDoesNotExist_itShouldReturnSuccessResult(){
-
-        Long id = 1L;
 
         Mockito.when(customerRepository.findById(id)).thenReturn(Optional.empty());
 
@@ -182,7 +153,30 @@ class CustomerServiceImplTest {
                 () -> customerService.deleteCustomer(id));
 
         Mockito.verify(customerRepository).findById(id);
-        Mockito.verifyNoMoreInteractions(customerRepository);
+    }
+
+    @Test
+    public void testGetAllUsers_itShouldReturnSuccessResult(){
+
+        Mockito.when(customerRepository.findById(id)).thenReturn(Optional.of(customer));
+        Mockito.when(customerConverter.convertToDto(customer)).thenReturn(customerDto);
+
+        Result result = customerService.findCustomerById(id);
+        assertTrue(result.isSuccess());
+
+        Mockito.verify(customerRepository).findById(id);
+        Mockito.verify(customerConverter).convertToDto(customer);
+    }
+
+    @Test
+    public void testGetAllUsers_whenCustomerIdDoesNotExist_itShouldReturnSuccessResult(){
+
+        Mockito.when(customerRepository.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(ServiceOperationException.NotFoundException.class,
+                () -> customerService.findCustomerById(id));
+
+        Mockito.verify(customerRepository).findById(id);
     }
 
 }

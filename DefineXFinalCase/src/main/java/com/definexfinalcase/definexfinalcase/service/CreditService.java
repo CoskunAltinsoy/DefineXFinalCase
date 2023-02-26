@@ -12,5 +12,6 @@ import java.util.List;
 public interface CreditService {
     Result createCreditDemand(CreateCreditRequest createCreditRequest);
     Result createCredit(UpdateCreditRequest updateCreditRequest);
-    DataResult<List<CreditDto>> getCreditByNatIdAndDateOfBirth(GetCreditResponse getCreditResponse);
+    DataResult<CreditDto> findCreditById(Long id);
+    DataResult<List<CreditDto>> findCreditByNatIdAndDateOfBirth(GetCreditResponse getCreditResponse);
 }

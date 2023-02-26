@@ -4,6 +4,7 @@ import com.definexfinalcase.definexfinalcase.dto.request.CreateCustomerRequest;
 import com.definexfinalcase.definexfinalcase.dto.request.UpdateCustomerRequest;
 import com.definexfinalcase.definexfinalcase.service.CustomerService;
 import com.definexfinalcase.definexfinalcase.util.result.Result;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
     @PostMapping("/create")
-    public ResponseEntity<Result> createCustomer(@RequestBody CreateCustomerRequest createCustomerRequest){
+    public ResponseEntity<Result> createCustomer(@RequestBody @Valid CreateCustomerRequest createCustomerRequest){
         return ResponseEntity.ok(customerService.createCustomer(createCustomerRequest));
     }
     @DeleteMapping("/delete/{id}")
@@ -25,7 +26,7 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.deleteCustomer(id));
     }
     @PutMapping("/update")
-    public ResponseEntity<Result> updateCustomer(@RequestBody UpdateCustomerRequest updateCustomerRequest){
+    public ResponseEntity<Result> updateCustomer(@RequestBody @Valid UpdateCustomerRequest updateCustomerRequest){
         return ResponseEntity.ok(customerService.updateCustomer(updateCustomerRequest));
     }
 

@@ -1,14 +1,15 @@
 package com.definexfinalcase.definexfinalcase.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
-@Data
-@NoArgsConstructor
+@Setter
+@Getter
 @AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class CustomerDto {
     private Long id;
     private String email;
@@ -20,5 +21,4 @@ public class CustomerDto {
     private String income;
     private String collateral;
     private LocalDate dateOfBirth;
-   // private List<CreditDto> creditDtos;
 }

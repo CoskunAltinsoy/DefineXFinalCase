@@ -5,6 +5,7 @@ import com.definexfinalcase.definexfinalcase.dto.response.CustomerDto;
 import com.definexfinalcase.definexfinalcase.dto.request.UpdateCustomerRequest;
 import com.definexfinalcase.definexfinalcase.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 public class CustomerConverter {
     private final CreditConverter creditConverter;
     @Autowired
-    public CustomerConverter(CreditConverter creditConverter) {
+    public CustomerConverter( CreditConverter creditConverter) {
         this.creditConverter = creditConverter;
     }
 
@@ -28,8 +29,7 @@ public class CustomerConverter {
                 customer.getNationalIdentity(),
                 customer.getIncome(),
                 customer.getCollateral(),
-                customer.getDateOfBirth()
-                /*creditConverter.convertToDto(customer.getCredits())*/);
+                customer.getDateOfBirth());
     }
 
     public Customer convertToEntity(CustomerDto customerDto){
@@ -42,8 +42,7 @@ public class CustomerConverter {
                 customerDto.getNationalIdentity(),
                 customerDto.getIncome(),
                 customerDto.getCollateral(),
-                customerDto.getDateOfBirth()
-                /*creditConverter.convertToEntity(customerDto.getCreditDtos())*/);
+                customerDto.getDateOfBirth());
     }
     public Customer convertToEntity(CreateCustomerRequest createCustomerRequest){
         return new Customer(createCustomerRequest.getEmail(),
