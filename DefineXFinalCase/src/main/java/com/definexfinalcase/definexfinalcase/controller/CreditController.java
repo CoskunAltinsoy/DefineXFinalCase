@@ -5,8 +5,6 @@ import com.definexfinalcase.definexfinalcase.dto.request.UpdateCreditRequest;
 import com.definexfinalcase.definexfinalcase.dto.response.CreditDto;
 import com.definexfinalcase.definexfinalcase.dto.response.GetCreditResponse;
 import com.definexfinalcase.definexfinalcase.service.CreditService;
-import com.definexfinalcase.definexfinalcase.util.result.DataResult;
-import com.definexfinalcase.definexfinalcase.util.result.Result;
 import jakarta.validation.Valid;
 import jdk.dynalink.linker.LinkerServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +22,15 @@ public class CreditController {
         this.creditService = creditService;
     }
     @PostMapping("/createCreditDemand")
-    public ResponseEntity<Result> createCreditDemand(@RequestBody @Valid CreateCreditRequest createCreditRequest){
+    public ResponseEntity<CreditDto> createCreditDemand(@RequestBody @Valid CreateCreditRequest createCreditRequest){
         return ResponseEntity.ok(creditService.createCreditDemand(createCreditRequest));
     }
     @PostMapping("/createCredit")
-    public ResponseEntity<Result> createCredit(@RequestBody @Valid UpdateCreditRequest updateCreditRequest){
+    public ResponseEntity<CreditDto> createCredit(@RequestBody @Valid UpdateCreditRequest updateCreditRequest){
         return ResponseEntity.ok(creditService.createCredit(updateCreditRequest));
     }
     @GetMapping("/getByCredit")
-    public ResponseEntity<DataResult<List<CreditDto>>> getByCredit(GetCreditResponse getCreditResponse){
+    public ResponseEntity<List<CreditDto>> getByCredit(GetCreditResponse getCreditResponse){
         return ResponseEntity.ok(creditService.findCreditByNatIdAndDateOfBirth(getCreditResponse));
     }
 }

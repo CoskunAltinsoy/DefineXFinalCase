@@ -2,8 +2,8 @@ package com.definexfinalcase.definexfinalcase.controller;
 
 import com.definexfinalcase.definexfinalcase.dto.request.CreateCustomerRequest;
 import com.definexfinalcase.definexfinalcase.dto.request.UpdateCustomerRequest;
+import com.definexfinalcase.definexfinalcase.dto.response.CustomerDto;
 import com.definexfinalcase.definexfinalcase.service.CustomerService;
-import com.definexfinalcase.definexfinalcase.util.result.Result;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,15 +18,16 @@ public class CustomerController {
         this.customerService = customerService;
     }
     @PostMapping("/create")
-    public ResponseEntity<Result> createCustomer(@RequestBody @Valid CreateCustomerRequest createCustomerRequest){
+    public ResponseEntity<CustomerDto> createCustomer(@RequestBody @Valid CreateCustomerRequest createCustomerRequest){
         return ResponseEntity.ok(customerService.createCustomer(createCustomerRequest));
     }
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Result> deleteCustomer(@PathVariable Long id){
-        return ResponseEntity.ok(customerService.deleteCustomer(id));
+    public ResponseEntity<Void> deleteCustomer(@PathVariable Long id){
+        customerService.deleteCustomer(id);
+       return (ResponseEntity<Void>) ResponseEntity.ok();
     }
     @PutMapping("/update")
-    public ResponseEntity<Result> updateCustomer(@RequestBody @Valid UpdateCustomerRequest updateCustomerRequest){
+    public ResponseEntity<CustomerDto> updateCustomer(@RequestBody @Valid UpdateCustomerRequest updateCustomerRequest){
         return ResponseEntity.ok(customerService.updateCustomer(updateCustomerRequest));
     }
 

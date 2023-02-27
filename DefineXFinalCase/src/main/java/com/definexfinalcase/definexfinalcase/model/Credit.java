@@ -56,5 +56,15 @@ public class Credit extends BaseEntity{
         this.customer = customer;
     }
 
-
+    public Credit(LocalDateTime createdDate, Long id, String creditType,
+                  double creditLimit, CreditStatus creditStatus,
+                  String description, Customer customer) {
+        super(createdDate);
+        this.id = id;
+        this.creditType = creditType;
+        this.creditLimit = creditLimit;
+        this.creditStatus = creditStatus;
+        this.description = description;
+        this.customer = customer;
+    }
 }

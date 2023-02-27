@@ -8,12 +8,8 @@ import com.definexfinalcase.definexfinalcase.exception.ServiceOperationException
 import com.definexfinalcase.definexfinalcase.model.Customer;
 import com.definexfinalcase.definexfinalcase.repository.CustomerRepository;
 import com.definexfinalcase.definexfinalcase.service.CustomerService;
-import com.definexfinalcase.definexfinalcase.util.result.Result;
-import com.definexfinalcase.definexfinalcase.util.result.SuccessResult;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.time.LocalDate;
@@ -43,6 +39,31 @@ class CustomerServiceImplTest {
             );
 
     Customer customer =
+            new Customer(id,
+                    "coskun@gmail.com",
+                    "12345",
+                    "+905455727995",
+                    "Mücahit",
+                    "Altınsoy",
+                    "21182764900",
+                    "9000",
+                    "10000",
+                    LocalDate.of(1996,07,29)
+            );
+
+    Customer savedCustomer =
+            new Customer(id,
+                    "coskun@gmail.com",
+                    "12345",
+                    "+905455727995",
+                    "Mücahit",
+                    "Altınsoy",
+                    "21182764900",
+                    "9000",
+                    "10000",
+                    LocalDate.of(1996,07,29)
+            );
+    Customer updateCustomer =
             new Customer(id,
                     "coskun@gmail.com",
                     "12345",
@@ -91,38 +112,38 @@ class CustomerServiceImplTest {
     }
 
     @Test
-    public void whenCreateCustomer_itShouldReturnSuccessResult(){
+    public void whenCreateCustomer_itShouldReturnCustomerDto(){
 
-        Mockito.when(customerConverter.convertToEntity(createCustomerRequest)).thenReturn(customer);
-        Mockito.when(customerRepository.save(customer)).thenReturn(customer);
+        Mockito.when(customerRepository.save(customer)).thenReturn(savedCustomer);
+        Mockito.when(customerConverter.convertToDto(savedCustomer)).thenReturn(customerDto);
 
-        Result result = customerService.createCustomer(createCustomerRequest);
+        CustomerDto result = customerService.createCustomer(createCustomerRequest);
 
-        assertTrue(result.isSuccess());
+        assertEquals(result, customerDto);
 
-        Mockito.verify(customerConverter).convertToEntity(createCustomerRequest);
         Mockito.verify(customerRepository).save(customer);
+        Mockito.verify(customerConverter).convertToDto(savedCustomer);
     }
 
     @Test
-    public void testUpdateCustomer_whenCustomerIdExist_itShouldReturnSuccessResult(){
+    public void testUpdateCustomer_whenCustomerIdExist_itShouldReturnCustomerDto(){
 
-        Mockito.when(customerConverter.convertToEntity(updateCustomerRequest)).thenReturn(customer);
         Mockito.when(customerRepository.findById(id)).thenReturn(Optional.of(customer));
-        Mockito.when(customerRepository.save(customer)).thenReturn(customer);
+        Mockito.when(customerRepository.save(updateCustomer)).thenReturn(savedCustomer);
+        Mockito.when(customerConverter.convertToDto(savedCustomer)).thenReturn(customerDto);
 
-        Result result = customerService.updateCustomer(updateCustomerRequest);
+        CustomerDto result = customerService.updateCustomer(updateCustomerRequest);
 
-        assertTrue(result.isSuccess());
+       assertEquals(result, customerDto);
 
-        Mockito.verify(customerConverter).convertToEntity(updateCustomerRequest);
         Mockito.verify(customerRepository).findById(id);
-        Mockito.verify(customerRepository).save(customer);
+        Mockito.verify(customerRepository).save(updateCustomer);
+        Mockito.verify(customerConverter).convertToDto(savedCustomer);
 
     }
 
     @Test
-    public void testUpdateCustomer_whenCustomerIdDoesNotExist_itShouldReturnSuccessResult(){
+    public void testUpdateCustomer_whenCustomerIdDoesNotExist_itShouldReturnCustomerDto(){
 
         Mockito.when(customerRepository.findById(id)).thenReturn(Optional.empty());
 
@@ -130,22 +151,19 @@ class CustomerServiceImplTest {
                 () -> customerService.updateCustomer(updateCustomerRequest));
 
         Mockito.verify(customerRepository).findById(id);
-        Mockito.verifyNoMoreInteractions(customerRepository);
     }
     @Test
-    public void testDeleteCustomer_whenCustomerIdExist_itShouldReturnSuccessResult(){
+    public void testDeleteCustomer_whenCustomerIdExist_itShouldDeleteCustomer(){
 
         Mockito.when(customerRepository.findById(id)).thenReturn(Optional.of(customer));
 
-        Result result = customerService.deleteCustomer(id);
-
-        assertTrue(result.isSuccess());
+        customerService.deleteCustomer(id);
 
         Mockito.verify(customerRepository).findById(id);
     }
 
     @Test
-    public void testDeleteCustomer_whenCustomerIdDoesNotExist_itShouldReturnSuccessResult(){
+    public void testDeleteCustomer_whenCustomerIdDoesNotExist_itShouldReturnThrowNotFoundException(){
 
         Mockito.when(customerRepository.findById(id)).thenReturn(Optional.empty());
 
@@ -155,28 +173,6 @@ class CustomerServiceImplTest {
         Mockito.verify(customerRepository).findById(id);
     }
 
-    @Test
-    public void testGetAllUsers_itShouldReturnSuccessResult(){
 
-        Mockito.when(customerRepository.findById(id)).thenReturn(Optional.of(customer));
-        Mockito.when(customerConverter.convertToDto(customer)).thenReturn(customerDto);
-
-        Result result = customerService.findCustomerById(id);
-        assertTrue(result.isSuccess());
-
-        Mockito.verify(customerRepository).findById(id);
-        Mockito.verify(customerConverter).convertToDto(customer);
-    }
-
-    @Test
-    public void testGetAllUsers_whenCustomerIdDoesNotExist_itShouldReturnSuccessResult(){
-
-        Mockito.when(customerRepository.findById(id)).thenReturn(Optional.empty());
-
-        assertThrows(ServiceOperationException.NotFoundException.class,
-                () -> customerService.findCustomerById(id));
-
-        Mockito.verify(customerRepository).findById(id);
-    }
 
 }

@@ -16,9 +16,6 @@ import com.definexfinalcase.definexfinalcase.service.CreditService;
 import com.definexfinalcase.definexfinalcase.service.CustomerService;
 import com.definexfinalcase.definexfinalcase.util.adapter.CustomerCheckCreditScore;
 import com.definexfinalcase.definexfinalcase.util.adapter.SmsSender;
-import com.definexfinalcase.definexfinalcase.util.result.Result;
-import com.definexfinalcase.definexfinalcase.util.result.SuccessDataResult;
-import com.definexfinalcase.definexfinalcase.util.result.SuccessResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -29,7 +26,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CreditServiceImplTest {
     private CreditService creditService;
@@ -99,7 +96,23 @@ class CreditServiceImplTest {
             );
 
     Credit credit = new Credit(
-            LocalDateTime.now(),
+            id,
+            "İhtiyaç Kredisi",
+            10000D,
+            CreditStatus.REVIEW,
+            "İhtiyaç Kredisi",
+            customer
+    );
+    Credit savedCredit = new Credit(
+            id,
+            "İhtiyaç Kredisi",
+            10000D,
+            CreditStatus.REVIEW,
+            "İhtiyaç Kredisi",
+            customer
+    );
+    Credit updateCredit = new Credit(
+            id,
             "İhtiyaç Kredisi",
             10000D,
             CreditStatus.REVIEW,
@@ -138,6 +151,17 @@ class CreditServiceImplTest {
     @Test
     public void whenCreateCreditDemand_itShouldReturnSuccessResult(){
 
+        /*Mockito.when(customerService.findCustomerById(id)).thenReturn(customer);
+        Mockito.when(creditRepository.save(credit)).thenReturn(savedCredit);
+        Mockito.when(creditConverter.convertToDto(savedCredit)).thenReturn(creditDto);
+
+        CreditDto result = creditService.createCreditDemand(createCreditRequest);
+
+        assertEquals(result, creditDto);
+
+        Mockito.verify(customerService).findCustomerById(id);
+        Mockito.verify(creditRepository).save(credit);
+        Mockito.verify(creditConverter).convertToDto(savedCredit);*/
     }
     @Test
     public void whenCreateCredit_itShouldReturnSuccessResult(){

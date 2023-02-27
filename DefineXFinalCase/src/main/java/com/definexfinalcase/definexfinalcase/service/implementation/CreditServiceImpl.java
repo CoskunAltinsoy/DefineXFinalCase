@@ -15,10 +15,7 @@ import com.definexfinalcase.definexfinalcase.service.CreditService;
 import com.definexfinalcase.definexfinalcase.service.CustomerService;
 import com.definexfinalcase.definexfinalcase.util.adapter.CustomerCheckCreditScore;
 import com.definexfinalcase.definexfinalcase.util.adapter.SmsSender;
-import com.definexfinalcase.definexfinalcase.util.result.DataResult;
-import com.definexfinalcase.definexfinalcase.util.result.Result;
-import com.definexfinalcase.definexfinalcase.util.result.SuccessDataResult;
-import com.definexfinalcase.definexfinalcase.util.result.SuccessResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @Service
 public class CreditServiceImpl implements CreditService {
     private final CreditRepository creditRepository;
@@ -49,27 +47,26 @@ public class CreditServiceImpl implements CreditService {
         this.smsSender = smsSender;
     }
     @Override
-    public Result createCreditDemand(CreateCreditRequest createCreditRequest){
-        Customer customer = customerConverter.convertToEntity
-                (customerService.findCustomerById(createCreditRequest.getCustomerId()).getData());
+    public CreditDto createCreditDemand(CreateCreditRequest createCreditRequest){
 
-        Credit credit = new Credit(createCreditRequest.getCreditType(),
-                createCreditRequest.getDescription(),
-                customer);
-
+        Customer customer = customerService.findCustomerById(createCreditRequest.getCustomerId());
+        Credit credit =
+                new Credit(
+                        createCreditRequest.getCreditType(),
+                        createCreditRequest.getDescription(),
+                        customer
+                );
         credit.setCreditStatus(CreditStatus.REVIEW);
         credit.setCreatedDate(LocalDateTime.now());
-        creditRepository.save(credit);
         smsSender.sendSms(credit.getCustomer().getPhoneNumber(),"Your credit card request has been received");
-        return new SuccessResult("CREDIT.DEMAND.CREATED");
+        log.info(String.format("Credit demand created, date: %s", credit.getCreatedDate()));
+        return creditConverter.convertToDto(creditRepository.save(credit));
     }
     @Override
-    public Result createCredit(UpdateCreditRequest updateCreditRequest){
-        Credit credit = creditConverter
-                .convertToEntity(findCreditById(updateCreditRequest.getId()).getData());
+    public CreditDto createCredit(UpdateCreditRequest updateCreditRequest){
 
-        Customer customer = customerConverter.convertToEntity
-                         (customerService.findCustomerById(updateCreditRequest.getCustomerId()).getData());
+        Credit credit = findCreditById(updateCreditRequest.getId());
+        Customer customer = customerService.findCustomerById(updateCreditRequest.getCustomerId());
 
         int score = this.customerCheckCreditScore.checkUserCreditScore(customer.getNationalIdentity());
 
@@ -121,26 +118,23 @@ public class CreditServiceImpl implements CreditService {
             }
         }
         credit.setCreatedDate(LocalDateTime.now());
-        creditRepository.save(credit);
         smsSender.sendSms(credit.getCustomer().getPhoneNumber(),"Your Application is Approved");
-        return  new SuccessResult("CREDIT.CREATED");
+        log.info(String.format("Credit created, date: %s", credit.getCreatedDate()));
+        return  creditConverter.convertToDto(creditRepository.save(credit));
     }
 
     @Override
-    public DataResult<List<CreditDto>> findCreditByNatIdAndDateOfBirth(GetCreditResponse getCreditResponse) {
+    public List<CreditDto> findCreditByNatIdAndDateOfBirth(GetCreditResponse getCreditResponse) {
         Customer customer = customerService
                 .findCustomerByNatIdAndDateOfBirth(getCreditResponse.getNationalIdentity(),
                                                   getCreditResponse.getDateOfBirth());
         List<Credit> credits = customer.getCredits();
-        List<CreditDto> creditDtos = creditConverter.convertToDto(credits);
-        return new SuccessDataResult<List<CreditDto>>(creditDtos,"CREDIT.LISTED");
+        return creditConverter.convertToDto(credits);
     }
     @Override
-    public DataResult<CreditDto> findCreditById(Long id){
-        Credit credit = creditRepository.findById(id)
+    public Credit findCreditById(Long id){
+        return creditRepository.findById(id)
                 .orElseThrow(() -> new ServiceOperationException.NotFoundException("Credit not found"));
-        return new SuccessDataResult<CreditDto>
-                (creditConverter.convertToDto(credit),"CREDIT.LISTED");
     }
 
 }

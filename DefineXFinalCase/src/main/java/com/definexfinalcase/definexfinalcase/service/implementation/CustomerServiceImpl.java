@@ -8,16 +8,14 @@ import com.definexfinalcase.definexfinalcase.exception.ServiceOperationException
 import com.definexfinalcase.definexfinalcase.model.Customer;
 import com.definexfinalcase.definexfinalcase.repository.CustomerRepository;
 import com.definexfinalcase.definexfinalcase.service.CustomerService;
-import com.definexfinalcase.definexfinalcase.util.result.DataResult;
-import com.definexfinalcase.definexfinalcase.util.result.Result;
-import com.definexfinalcase.definexfinalcase.util.result.SuccessDataResult;
-import com.definexfinalcase.definexfinalcase.util.result.SuccessResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+@Slf4j
 @Service
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
@@ -29,31 +27,49 @@ public class CustomerServiceImpl implements CustomerService {
         this.customerConverter = customerConverter;
     }
     @Override
-    public Result createCustomer(CreateCustomerRequest createCustomerRequest){
-        Customer customer = customerConverter.convertToEntity(createCustomerRequest);
+    public CustomerDto createCustomer(CreateCustomerRequest createCustomerRequest){
+        Customer customer =
+                new Customer(
+                        createCustomerRequest.getEmail(),
+                        createCustomerRequest.getPassword(),
+                        createCustomerRequest.getPhoneNumber(),
+                        createCustomerRequest.getFirstName(),
+                        createCustomerRequest.getLastName(),
+                        createCustomerRequest.getNationalIdentity(),
+                        createCustomerRequest.getIncome(),
+                        createCustomerRequest.getCollateral(),
+                        createCustomerRequest.getDateOfBirth()
+                );
         customer.setCreatedDate(LocalDateTime.now());
-        customerRepository.save(customer);
-       return new SuccessResult("CUSTOMER.ADDED");
+        log.info(String.format("Customer saved, date: %s", customer.getCreatedDate()));
+        return customerConverter.convertToDto(customerRepository.save(customer));
     }
     @Override
-    public Result updateCustomer(UpdateCustomerRequest updateCustomerRequest){
-        Customer customer = customerConverter
-                .convertToEntity(findCustomerById(updateCustomerRequest.getId()).getData());
+    public CustomerDto updateCustomer(UpdateCustomerRequest updateCustomerRequest){
+        Customer customer = findCustomerById(updateCustomerRequest.getId());
+        customer.setEmail(updateCustomerRequest.getEmail());
+        customer.setPassword(updateCustomerRequest.getPassword());
+        customer.setPhoneNumber(updateCustomerRequest.getPhoneNumber());
+        customer.setFirstName(updateCustomerRequest.getFirstName());
+        customer.setLastName(updateCustomerRequest.getLastName());
+        customer.setNationalIdentity(updateCustomerRequest.getNationalIdentity());
+        customer.setIncome(updateCustomerRequest.getIncome());
+        customer.setCollateral(updateCustomerRequest.getCollateral());
+        customer.setDateOfBirth(updateCustomerRequest.getDateOfBirth());
         customer.setCreatedDate(LocalDateTime.now());
-        customerRepository.save(customer);
-        return new SuccessResult("CUSTOMER.UPDATED");
+        log.info(String.format("Customer updated, date: %s", customer.getCreatedDate()));
+        return customerConverter.convertToDto(customerRepository.save(customer));
     }
     @Override
-    public Result deleteCustomer(Long id){
-        customerRepository.delete(customerConverter.convertToEntity(findCustomerById(id).getData()));
-        return new SuccessResult("CUSTOMER.DELETED");
+    public void deleteCustomer(Long id){
+        customerRepository.delete(findCustomerById(id));
+        log.info(String.format("Customer deleted, customerID: %s", id));
     }
     @Override
-    public DataResult<CustomerDto> findCustomerById(Long id){
-        Customer customer = this.customerRepository.findById(id)
+    public Customer findCustomerById(Long id){
+        return  this.customerRepository.findById(id)
                 .orElseThrow(() -> new ServiceOperationException.NotFoundException("Customer not found."));
-        return new SuccessDataResult<CustomerDto>
-                (customerConverter.convertToDto(customer),"CUSTOMER.LISTED");
+
     }
     @Override
     public Customer findCustomerByNatIdAndDateOfBirth(String natId, LocalDate dateOfBirth) {

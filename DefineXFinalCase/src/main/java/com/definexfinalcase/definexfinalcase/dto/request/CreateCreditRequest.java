@@ -11,13 +11,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateCreditRequest {
     @NotNull
-    @NotBlank
     private String creditType;
     @NotNull
-    @NotBlank
     private String description;
     @NotNull
-    @NotBlank
     private Long customerId;
 
 }

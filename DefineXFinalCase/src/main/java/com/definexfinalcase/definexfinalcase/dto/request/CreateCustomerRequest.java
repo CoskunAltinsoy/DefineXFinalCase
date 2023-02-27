@@ -15,29 +15,21 @@ import java.time.LocalDate;
 public class CreateCustomerRequest {
     @NotNull
     @Email(regexp = ".+[@].+[\\.].+")
-    @NotBlank
     private String email;
     @NotNull
-    @NotBlank
     private String password;
     @NotNull
-    @NotBlank
     private String phoneNumber;
     @NotNull
-    @NotBlank
     private String firstName;
     @NotNull
-    @NotBlank
     private String lastName;
     @NotNull
-    @NotBlank
     private String nationalIdentity;
     @NotNull
-    @NotBlank
     private String income;
     private String collateral;
     @NotNull
-    @NotBlank
     private LocalDate dateOfBirth;
 
 }
